@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peluang Jumlah Siswa Absen</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Peluang Jumlah Siswa yang Absen di Sekolah</h1>
+
+        <!-- Form Input -->
+        <form method="POST">
+            <label for="lambda_value">Rata-rata Jumlah Siswa yang Absen (\(\lambda\)):</label>
+            <input type="number" step="0.01" id="lambda_value" name="lambda_value" placeholder="Masukkan nilai λ" required>
+
+            <label for="k_range">Jumlah Maksimum Absen (k):</label>
+            <input type="number" id="k_range" name="k_range" placeholder="Masukkan nilai k" required>
+
+            <button type="submit">Hitung</button>
+        </form>
+
+        <!-- Hasil -->
+        {% if probabilities %}
+        <div class="result">
+            <h2>Hasil Perhitungan</h2>
+            <p>Rata-rata Siswa yang Absen (\(\lambda\)): <strong>{{ lambda_value }}</strong></p>
+            <p>Maksimum Jumlah Absen (k): <strong>{{ k_range }}</strong></p>
+
+            <div class="tables">
+                <!-- Tabel Peluang -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Jumlah Absen (k)</th>
+                            <th>Peluang</th>
+                            <th>Persentase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in range(0, k_range + 1) %}
+                        <tr>
+                            <td>{{ i }}</td>
+                            <td>{{ probabilities[i] }}</td>
+                            <td>{{ percentages[i] }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
